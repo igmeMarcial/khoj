@@ -49,9 +49,8 @@ interface CredentialsData {
 
 export default function LoginPrompt(props: LoginPromptProps) {
     const { data, error, isLoading } = useSWR<CredentialsData>("/auth/oauth/metadata", fetcher);
-
+    console.log(data)
     const [useEmailSignIn, setUseEmailSignIn] = useState(false);
-
     const [email, setEmail] = useState("");
     const [checkEmail, setCheckEmail] = useState(false);
     const [recheckEmail, setRecheckEmail] = useState(false);
@@ -81,8 +80,9 @@ export default function LoginPrompt(props: LoginPromptProps) {
         if (!data?.google?.client_id || !data?.google?.redirect_uri) return;
 
         // Create full redirect URL using current origin
-        const fullRedirectUri = `${window.location.origin}${data.google.redirect_uri}`;
 
+        // const fullRedirectUri = `${window.location.origin}${data.google.redirect_uri}`;
+        const fullRedirectUri = `http://localhost:42110${data.google.redirect_uri}`;
         const params = new URLSearchParams({
             client_id: data.google.client_id,
             redirect_uri: fullRedirectUri,

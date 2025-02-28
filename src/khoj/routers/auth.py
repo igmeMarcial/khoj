@@ -231,6 +231,7 @@ async def auth(request: Request):
 
     # Build the payload for the token request
     code = request.query_params.get("code")
+    logger.log(logging.INFO, f"URI====>: {redirect_uri}")
     payload = {
         "code": code,
         "client_id": os.environ["GOOGLE_CLIENT_ID"],
