@@ -82,7 +82,8 @@ export default function LoginPrompt(props: LoginPromptProps) {
 
         // Create full redirect URL using current origin
         const fullRedirectUri = `${window.location.origin}${data.google.redirect_uri}`;
-
+       
+      
         const params = new URLSearchParams({
             client_id: data.google.client_id,
             redirect_uri: fullRedirectUri,
@@ -466,7 +467,7 @@ function MainSignInContext({
             )}
             <div className="flex flex-col gap-4 text-center p-2">
                 <div className="text-center font-bold text-xl">
-                    Sign in to unlock your second brain
+                    Iniciar sesión con Google
                 </div>
             </div>
             <div className="flex flex-col gap-8 pb-4 text-center align-middle items-center">
