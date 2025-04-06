@@ -35,12 +35,12 @@ import {
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { formatDateTime, useIsMobileWidth } from "../common/utils";
+import { formatDateTime, useIsMobileWidth } from "../../../../common/utils";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "../components/appSidebar/appSidebar";
+import { AppSidebar } from "../../../../components/appSidebar/appSidebar";
 import { Separator } from "@/components/ui/separator";
-import { KhojLogoType } from "../components/logo/khojLogo";
-import { InlineLoading } from "../components/loading/loading";
+import { KhojLogoType } from "../../../../components/logo/khojLogo";
+import { InlineLoading } from "../../../../components/loading/loading";
 import {
     Dialog,
     DialogContent,
@@ -76,7 +76,7 @@ import {
 } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
-import { uploadDataForIndexing } from "../common/chatFunctions";
+import { uploadDataForIndexing } from "../../../../common/chatFunctions";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 interface AdditionalData {
@@ -508,7 +508,7 @@ function FileFilterComboBox(props: FileFilterComboBoxProps) {
     }, [open]);
 
     return (
-        <Popover open={open || (noMatchingFiles && (!!inputText))} onOpenChange={setOpen}>
+        <Popover open={open || (noMatchingFiles && !!inputText)} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
                 <Button
                     variant="outline"
@@ -521,14 +521,18 @@ function FileFilterComboBox(props: FileFilterComboBoxProps) {
                             ? "✔️"
                             : "Selected"
                         : props.isMobileWidth
-                            ? " "
-                            : "Select file"}
+                          ? " "
+                          : "Select file"}
                     <Funnel className="opacity-50" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0">
                 <Command>
-                    <CommandInput placeholder="Search files..." value={inputText} onInput={(e) => setInputText(e.currentTarget.value)} />
+                    <CommandInput
+                        placeholder="Search files..."
+                        value={inputText}
+                        onInput={(e) => setInputText(e.currentTarget.value)}
+                    />
                     <CommandList>
                         <CommandEmpty>No files found.</CommandEmpty>
                         <CommandGroup>
@@ -614,7 +618,6 @@ export default function Search() {
                 setSelectedFileFilter("INITIALIZE");
             }
         }
-
     }, [searchQuery]);
 
     function handleSearchInputChange(value: string) {

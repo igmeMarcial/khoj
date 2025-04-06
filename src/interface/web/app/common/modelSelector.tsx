@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import { useState, useEffect } from "react";
-import { PopoverProps } from "@radix-ui/react-popover"
+import { PopoverProps } from "@radix-ui/react-popover";
 
 import { Check, CaretUpDown } from "@phosphor-icons/react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 import { useIsMobileWidth, useMutationObserver } from "@/app/common/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,11 +17,7 @@ import {
     CommandItem,
     CommandList,
 } from "@/components/ui/command";
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 import { ModelOptions, useUserConfig } from "./auth";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
@@ -35,7 +31,7 @@ interface ModelSelectorProps extends PopoverProps {
 }
 
 export function ModelSelector({ ...props }: ModelSelectorProps) {
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = React.useState(false);
     const [peekedModel, setPeekedModel] = useState<ModelOptions | undefined>(undefined);
     const [selectedModel, setSelectedModel] = useState<ModelOptions | undefined>(undefined);
     const { data: userConfig, error, isLoading: isLoadingUserConfig } = useUserConfig(true);
@@ -48,7 +44,9 @@ export function ModelSelector({ ...props }: ModelSelectorProps) {
         if (userConfig) {
             setModels(userConfig.chat_model_options);
             if (!props.initialModel) {
-                const selectedChatModelOption = userConfig.chat_model_options.find(model => model.id === userConfig.selected_chat_model_config);
+                const selectedChatModelOption = userConfig.chat_model_options.find(
+                    (model) => model.id === userConfig.selected_chat_model_config,
+                );
                 if (!selectedChatModelOption) {
                     setSelectedModel(userConfig.chat_model_options[0]);
                     return;
@@ -56,7 +54,9 @@ export function ModelSelector({ ...props }: ModelSelectorProps) {
                     setSelectedModel(selectedChatModelOption);
                 }
             } else {
-                const model = userConfig.chat_model_options.find(model => model.name === props.initialModel);
+                const model = userConfig.chat_model_options.find(
+                    (model) => model.name === props.initialModel,
+                );
                 setSelectedModel(model);
             }
         }
@@ -64,11 +64,12 @@ export function ModelSelector({ ...props }: ModelSelectorProps) {
 
     useEffect(() => {
         if (props.selectedModel && selectedModel && props.selectedModel !== selectedModel.name) {
-            const model = models.find(model => model.name === props.selectedModel);
+            const model = models.find((model) => model.name === props.selectedModel);
             setSelectedModel(model);
-        }
-        else if (props.selectedModel === null && userConfig) {
-            const selectedChatModelOption = userConfig.chat_model_options.find(model => model.id === userConfig.selected_chat_model_config);
+        } else if (props.selectedModel === null && userConfig) {
+            const selectedChatModelOption = userConfig.chat_model_options.find(
+                (model) => model.id === userConfig.selected_chat_model_config,
+            );
             if (!selectedChatModelOption) {
                 props.onSelect(userConfig.chat_model_options[0], false);
                 return;
@@ -88,15 +89,11 @@ export function ModelSelector({ ...props }: ModelSelectorProps) {
     }, [selectedModel]);
 
     if (isLoadingUserConfig) {
-        return (
-            <Skeleton className="w-full h-10" />
-        );
+        return <Skeleton className="w-full h-10" />;
     }
 
     if (error) {
-        return (
-            <div className="text-sm text-error">{error.message}</div>
-        );
+        return <div className="text-sm text-error">{error.message}</div>;
     }
 
     return (
@@ -112,30 +109,84 @@ export function ModelSelector({ ...props }: ModelSelectorProps) {
                         disabled={props.disabled ?? false}
                     >
                         <p className="truncate">
-                            {selectedModel ? selectedModel.name.substring(0, 20) : "Select a model..."}
+                            {selectedModel
+                                ? selectedModel.name.substring(0, 20)
+                                : "Select a model..."}
                         </p>
                         <CaretUpDown className="opacity-50" />
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent align="end" className="w-[250px] p-0">
-                    {
-                        isMobileWidth ?
+                    {isMobileWidth ? (
+                        <div>
+                            <Command loop>
+                                <CommandList className="h-[var(--cmdk-list-height)]">
+                                    <CommandInput placeholder="Search Models..." />
+                                    <CommandEmpty>No Models found.</CommandEmpty>
+                                    <CommandGroup key={"models"} heading={"Models"}>
+                                        {models &&
+                                            models.length > 0 &&
+                                            models.map((model) => (
+                                                <ModelItem
+                                                    key={model.id}
+                                                    model={model}
+                                                    isSelected={selectedModel?.id === model.id}
+                                                    onPeek={(model) => setPeekedModel(model)}
+                                                    onSelect={() => {
+                                                        setSelectedModel(model);
+                                                        setOpen(false);
+                                                    }}
+                                                />
+                                            ))}
+                                    </CommandGroup>
+                                </CommandList>
+                            </Command>
+                        </div>
+                    ) : (
+                        <HoverCard>
+                            <HoverCardContent
+                                side="left"
+                                align="start"
+                                forceMount
+                                className="min-h-[280px]"
+                            >
+                                <div className="grid gap-2">
+                                    <h4 className="font-medium leading-none">
+                                        {peekedModel?.name}
+                                    </h4>
+                                    <div className="text-sm text-muted-foreground">
+                                        {peekedModel?.description}
+                                    </div>
+                                    {peekedModel?.strengths ? (
+                                        <div className="mt-4 grid gap-2">
+                                            <h5 className="text-sm font-medium leading-none">
+                                                Strengths
+                                            </h5>
+                                            <p className="text-sm text-muted-foreground">
+                                                {peekedModel.strengths}
+                                            </p>
+                                        </div>
+                                    ) : null}
+                                </div>
+                            </HoverCardContent>
                             <div>
+                                <HoverCardTrigger />
                                 <Command loop>
                                     <CommandList className="h-[var(--cmdk-list-height)]">
                                         <CommandInput placeholder="Search Models..." />
                                         <CommandEmpty>No Models found.</CommandEmpty>
                                         <CommandGroup key={"models"} heading={"Models"}>
-                                            {models && models.length > 0 && models
-                                                .map((model) => (
+                                            {models &&
+                                                models.length > 0 &&
+                                                models.map((model) => (
                                                     <ModelItem
                                                         key={model.id}
                                                         model={model}
                                                         isSelected={selectedModel?.id === model.id}
                                                         onPeek={(model) => setPeekedModel(model)}
                                                         onSelect={() => {
-                                                            setSelectedModel(model)
-                                                            setOpen(false)
+                                                            setSelectedModel(model);
+                                                            setOpen(false);
                                                         }}
                                                     />
                                                 ))}
@@ -143,72 +194,23 @@ export function ModelSelector({ ...props }: ModelSelectorProps) {
                                     </CommandList>
                                 </Command>
                             </div>
-                            :
-                            <HoverCard>
-                                <HoverCardContent
-                                    side="left"
-                                    align="start"
-                                    forceMount
-                                    className="min-h-[280px]"
-                                >
-                                    <div className="grid gap-2">
-                                        <h4 className="font-medium leading-none">{peekedModel?.name}</h4>
-                                        <div className="text-sm text-muted-foreground">
-                                            {peekedModel?.description}
-                                        </div>
-                                        {peekedModel?.strengths ? (
-                                            <div className="mt-4 grid gap-2">
-                                                <h5 className="text-sm font-medium leading-none">
-                                                    Strengths
-                                                </h5>
-                                                <p className="text-sm text-muted-foreground">
-                                                    {peekedModel.strengths}
-                                                </p>
-                                            </div>
-                                        ) : null}
-                                    </div>
-                                </HoverCardContent>
-                                <div>
-                                    <HoverCardTrigger />
-                                    <Command loop>
-                                        <CommandList className="h-[var(--cmdk-list-height)]">
-                                            <CommandInput placeholder="Search Models..." />
-                                            <CommandEmpty>No Models found.</CommandEmpty>
-                                            <CommandGroup key={"models"} heading={"Models"}>
-                                                {models && models.length > 0 && models
-                                                    .map((model) => (
-                                                        <ModelItem
-                                                            key={model.id}
-                                                            model={model}
-                                                            isSelected={selectedModel?.id === model.id}
-                                                            onPeek={(model) => setPeekedModel(model)}
-                                                            onSelect={() => {
-                                                                setSelectedModel(model)
-                                                                setOpen(false)
-                                                            }}
-                                                        />
-                                                    ))}
-                                            </CommandGroup>
-                                        </CommandList>
-                                    </Command>
-                                </div>
-                            </HoverCard>
-                    }
+                        </HoverCard>
+                    )}
                 </PopoverContent>
             </Popover>
         </div>
-    )
+    );
 }
 
 interface ModelItemProps {
-    model: ModelOptions,
-    isSelected: boolean,
-    onSelect: () => void,
-    onPeek: (model: ModelOptions) => void
+    model: ModelOptions;
+    isSelected: boolean;
+    onSelect: () => void;
+    onPeek: (model: ModelOptions) => void;
 }
 
 function ModelItem({ model, isSelected, onSelect, onPeek }: ModelItemProps) {
-    const ref = React.useRef<HTMLDivElement>(null)
+    const ref = React.useRef<HTMLDivElement>(null);
 
     useMutationObserver(ref, (mutations) => {
         mutations.forEach((mutation) => {
@@ -217,10 +219,10 @@ function ModelItem({ model, isSelected, onSelect, onPeek }: ModelItemProps) {
                 mutation.attributeName === "aria-selected" &&
                 ref.current?.getAttribute("aria-selected") === "true"
             ) {
-                onPeek(model)
+                onPeek(model);
             }
-        })
-    })
+        });
+    });
 
     return (
         <CommandItem
@@ -230,9 +232,7 @@ function ModelItem({ model, isSelected, onSelect, onPeek }: ModelItemProps) {
             className="data-[selected=true]:bg-muted data-[selected=true]:text-secondary-foreground"
         >
             {model.name}
-            <Check
-                className={cn("ml-auto", isSelected ? "opacity-100" : "opacity-0")}
-            />
+            <Check className={cn("ml-auto", isSelected ? "opacity-100" : "opacity-0")} />
         </CommandItem>
-    )
+    );
 }

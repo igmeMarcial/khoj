@@ -1,7 +1,7 @@
 "use client";
 
 import useSWR from "swr";
-import { InlineLoading } from "../components/loading/loading";
+import { InlineLoading } from "../../../../components/loading/loading";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
 
@@ -41,10 +41,10 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { LocationData, useIPLocationData, useIsMobileWidth } from "../common/utils";
+import { LocationData, useIPLocationData, useIsMobileWidth } from "@/app/common/utils";
 
 import styles from "./automations.module.css";
-import ShareLink from "../components/shareLink/shareLink";
+import ShareLink from "../../../../components/shareLink/shareLink";
 import { useSearchParams } from "next/navigation";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import {
@@ -61,16 +61,16 @@ import {
     Plus,
     Trash,
 } from "@phosphor-icons/react";
-import { useAuthenticatedData, UserProfile } from "../common/auth";
-import LoginPrompt from "../components/loginPrompt/loginPrompt";
+import { useAuthenticatedData, UserProfile } from "@/app/common/auth";
+import LoginPrompt from "../../../../components/loginPrompt/loginPrompt";
 import { useToast } from "@/components/ui/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Drawer, DrawerContent, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "../components/appSidebar/appSidebar";
+import { AppSidebar } from "../../../../components/appSidebar/appSidebar";
 import { Separator } from "@/components/ui/separator";
-import { KhojLogoType } from "../components/logo/khojLogo";
+import { KhojLogoType } from "../../../../components/logo/khojLogo";
 
 const automationsFetcher = () =>
     window

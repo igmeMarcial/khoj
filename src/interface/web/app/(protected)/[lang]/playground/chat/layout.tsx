@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
 import { noto_sans, noto_sans_arabic } from "@/app/fonts";
 import "../globals.css";
-import { Toaster } from "@/components/ui/toaster";
-import { ContentSecurityPolicy } from "../common/layoutHelper";
-import { ChatwootWidget } from "../components/chatWoot/ChatwootWidget";
-import { ThemeProvider } from "../components/providers/themeProvider";
+import { ContentSecurityPolicy } from "../../../../common/layoutHelper";
+import { ThemeProvider } from "@/app/components/providers/themeProvider";
 
 export const metadata: Metadata = {
-    title: "Khoj AI - Settings",
-    description: "Configure Khoj to get personalized, deeper assistance.",
+    title: "Khoj AI - Chat",
+    description:
+        "Ask anything. Research answers from across the internet and your documents, draft messages, summarize documents, generate paintings and chat with personal agents.",
     icons: {
         icon: "/static/assets/icons/khoj_lantern.ico",
         apple: "/static/assets/icons/khoj_lantern_256x256.png",
     },
     openGraph: {
         siteName: "Khoj AI",
-        title: "Khoj AI - Settings",
-        description: "Setup, configure, and personalize Khoj, your AI research assistant.",
-        url: "https://app.khoj.dev/settings",
+        title: "Khoj AI - Chat",
+        description:
+            "Ask anything. Research answers from across the internet and your documents, draft messages, summarize documents, generate paintings and chat with personal agents.",
+        url: "https://app.khoj.dev/chat",
         type: "website",
         images: [
             {
@@ -59,8 +59,11 @@ export default function RootLayout({
             <body>
                 <ThemeProvider>
                     {children}
-                    <Toaster />
-                    <ChatwootWidget />
+                    <script
+                        dangerouslySetInnerHTML={{
+                            __html: `window.EXCALIDRAW_ASSET_PATH = 'https://assets.khoj.dev/@excalidraw/excalidraw/dist/';`,
+                        }}
+                    />
                 </ThemeProvider>
             </body>
         </html>

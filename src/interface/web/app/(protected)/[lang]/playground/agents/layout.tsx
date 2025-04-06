@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { noto_sans, noto_sans_arabic } from "@/app/fonts";
 import "../globals.css";
-import { ContentSecurityPolicy } from "../common/layoutHelper";
-import { ThemeProvider } from "../components/providers/themeProvider";
+import { ContentSecurityPolicy } from "@/app/common/layoutHelper";
+import { ThemeProvider } from "../../../../components/providers/themeProvider";
 
 export const metadata: Metadata = {
     title: "Khoj AI - Agents",
@@ -57,9 +57,7 @@ export default function RootLayout({
             </head>
             <ContentSecurityPolicy />
             <body>
-                <ThemeProvider>
-                    {children}
-                </ThemeProvider>
+                <ThemeProvider>{children}</ThemeProvider>
             </body>
         </html>
     );

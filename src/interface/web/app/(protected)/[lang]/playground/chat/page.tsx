@@ -3,11 +3,11 @@
 import styles from "./chat.module.css";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 
-import ChatHistory from "../components/chatHistory/chatHistory";
+import ChatHistory from "@/app/components/chatHistory/chatHistory";
 import { useSearchParams } from "next/navigation";
-import Loading from "../components/loading/loading";
+import Loading from "@/app/components/loading/loading";
 
-import { generateNewTitle, processMessageChunk } from "../common/chatFunctions";
+import { generateNewTitle, processMessageChunk } from "../../../../common/chatFunctions";
 
 import "katex/dist/katex.min.css";
 
@@ -16,25 +16,23 @@ import {
     Context,
     OnlineContext,
     StreamMessage,
-} from "../components/chatMessage/chatMessage";
-import { useIPLocationData, useIsMobileWidth, welcomeConsole } from "../common/utils";
+} from "@/app/components/chatMessage/chatMessage";
+import { useIPLocationData, useIsMobileWidth, welcomeConsole } from "../../../../common/utils";
 import {
     AttachedFileText,
     ChatInputArea,
     ChatOptions,
-} from "../components/chatInputArea/chatInputArea";
-import { useAuthenticatedData } from "../common/auth";
-import {
-    AgentData,
-} from "@/app/components/agentCard/agentCard";
-import { ChatSessionActionMenu } from "../components/allConversations/allConversations";
+} from "@/app/components/chatInputArea/chatInputArea";
+import { useAuthenticatedData } from "../../../../common/auth";
+import { AgentData } from "@/app/components/agentCard/agentCard";
+import { ChatSessionActionMenu } from "@/app/components/allConversations/allConversations";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "../components/appSidebar/appSidebar";
+import { AppSidebar } from "@/app/components/appSidebar/appSidebar";
 import { Separator } from "@/components/ui/separator";
-import { KhojLogoType } from "../components/logo/khojLogo";
+import { KhojLogoType } from "@/app/components/logo/khojLogo";
 import { Button } from "@/components/ui/button";
 import { Joystick } from "@phosphor-icons/react";
-import { ChatSidebar } from "../components/chatSidebar/chatSidebar";
+import { ChatSidebar } from "@/app/components/chatSidebar/chatSidebar";
 
 interface ChatBodyDataProps {
     chatOptionsData: ChatOptions | null;
@@ -182,7 +180,8 @@ function ChatBodyData(props: ChatBodyDataProps) {
                 conversationId={conversationId}
                 isOpen={props.isChatSideBarOpen}
                 onOpenChange={props.setIsChatSideBarOpen}
-                isMobileWidth={props.isMobileWidth} />
+                isMobileWidth={props.isMobileWidth}
+            />
         </div>
     );
 }
@@ -486,6 +485,6 @@ export default function Chat() {
                     </div>
                 </div>
             </SidebarInset>
-        </SidebarProvider >
+        </SidebarProvider>
     );
 }

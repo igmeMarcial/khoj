@@ -1,10 +1,10 @@
-import { AttachedFileText } from "../components/chatInputArea/chatInputArea";
+import { AttachedFileText } from "@/app/components/chatInputArea/chatInputArea";
 import {
     CodeContext,
     Context,
     OnlineContext,
     StreamMessage,
-} from "../components/chatMessage/chatMessage";
+} from "@/app/components/chatMessage/chatMessage";
 
 export interface RawReferenceData {
     context?: Context[];

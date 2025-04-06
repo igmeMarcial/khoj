@@ -1,6 +1,6 @@
 "use client";
-import "./globals.css";
-import styles from "./page.module.css";
+import "../../../globals.css";
+import styles from "../../../page.module.css";
 import "katex/dist/katex.min.css";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -37,17 +37,17 @@ import {
 import { convertColorToBorderClass } from "@/app/common/colorUtils";
 import { getIconFromIconName } from "@/app/common/iconUtils";
 import { AgentData } from "@/app/components/agentCard/agentCard";
-import { createNewConversation } from "./common/chatFunctions";
-import { useDebounce, useIsMobileWidth } from "./common/utils";
+import { createNewConversation } from "@/app/common/chatFunctions";
+import { useDebounce, useIsMobileWidth } from "@/app/common/utils";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { AgentCard } from "@/app/components/agentCard/agentCard";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import LoginPopup from "./components/loginPrompt/loginPopup";
+import LoginPopup from "../../../components/loginPrompt/loginPopup";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "./components/appSidebar/appSidebar";
+import { AppSidebar } from "../../../components/appSidebar/appSidebar";
 import { Separator } from "@/components/ui/separator";
-import { KhojLogoType } from "./components/logo/khojLogo";
+import { KhojLogoType } from "../../../components/logo/khojLogo";
 import {
     DropdownMenu,
     DropdownMenuContent,

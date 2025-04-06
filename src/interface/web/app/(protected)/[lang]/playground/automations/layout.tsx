@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
 
 import "../globals.css";
-import { ContentSecurityPolicy } from "../common/layoutHelper";
+import { ContentSecurityPolicy } from "@/app/common/layoutHelper";
 
 export const metadata: Metadata = {
     title: "Khoj AI - Automations",

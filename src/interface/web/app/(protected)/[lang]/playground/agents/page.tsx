@@ -12,15 +12,15 @@ import {
     ModelOptions,
     useUserConfig,
     isUserSubscribed,
-} from "../common/auth";
+} from "@/app/common/auth";
 
 import { Lightning, Plus } from "@phosphor-icons/react";
 import { z } from "zod";
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
-import LoginPrompt from "../components/loginPrompt/loginPrompt";
-import { InlineLoading } from "../components/loading/loading";
+import LoginPrompt from "../../../../components/loginPrompt/loginPrompt";
+import { InlineLoading } from "../../../../components/loading/loading";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useIsDarkMode, useIsMobileWidth } from "../common/utils";
+import { useIsDarkMode, useIsMobileWidth } from "@/app/common/utils";
 import {
     AgentCard,
     EditAgentSchema,
@@ -31,9 +31,9 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "../components/appSidebar/appSidebar";
+import { AppSidebar } from "../../../../components/appSidebar/appSidebar";
 import { Separator } from "@/components/ui/separator";
-import { KhojLogoType } from "../components/logo/khojLogo";
+import { KhojLogoType } from "../../../../components/logo/khojLogo";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import Link from "next/link";
 
@@ -344,14 +344,16 @@ export default function Agents() {
                                     />
                                     <span className="font-bold">How it works</span> Use any of these
                                     specialized personas to tune your conversation to your needs.
-                                    {
-                                        !isSubscribed && (
-                                            <span>
-                                                {" "}
-                                                <Link href="/settings" className="font-bold">Upgrade your plan</Link> to leverage custom models. You will fallback to the default model when chatting.
-                                            </span>
-                                        )
-                                    }
+                                    {!isSubscribed && (
+                                        <span>
+                                            {" "}
+                                            <Link href="/settings" className="font-bold">
+                                                Upgrade your plan
+                                            </Link>{" "}
+                                            to leverage custom models. You will fallback to the
+                                            default model when chatting.
+                                        </span>
+                                    )}
                                 </AlertDescription>
                             </Alert>
                             <div className="pt-6 md:pt-8">

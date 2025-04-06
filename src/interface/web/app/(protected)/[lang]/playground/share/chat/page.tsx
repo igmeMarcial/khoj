@@ -3,12 +3,12 @@
 import styles from "./sharedChat.module.css";
 import React, { Suspense, useEffect, useRef, useState } from "react";
 
-import ChatHistory from "../../components/chatHistory/chatHistory";
-import Loading from "../../components/loading/loading";
+import ChatHistory from "../../../../../components/chatHistory/chatHistory";
+import Loading from "../../../../../components/loading/loading";
 
 import "katex/dist/katex.min.css";
 
-import { useIsMobileWidth, welcomeConsole } from "../../common/utils";
+import { useIsMobileWidth, welcomeConsole } from "../../../../../common/utils";
 import { useAuthenticatedData } from "@/app/common/auth";
 
 import {
