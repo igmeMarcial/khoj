@@ -225,7 +225,8 @@ async def auth(request: Request):
     if not DISABLE_HTTPS:
         base_url = base_url.replace("http://", "https://")
     redirect_uri = f"{base_url}{request.app.url_path_for('auth')}"
-
+    logger.info('==========================')
+    logger.info(redirect_uri)
     # Build the payload for the token request
     code = request.query_params.get("code")
     payload = {

@@ -76,6 +76,7 @@ default_origins = [
     "http://localhost:*",  # To allow access from localhost
     "http://127.0.0.1:*",  # To allow access from localhost
     "app://khoj.dev",  # To allow access from Khoj desktop app
+    "http://localhost:3000",
 ]
 
 app.add_middleware(

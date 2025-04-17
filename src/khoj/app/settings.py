@@ -40,6 +40,7 @@ CSRF_TRUSTED_ORIGINS = [
     f"http://*.{KHOJ_DOMAIN}",
     f"http://{KHOJ_DOMAIN}",
     f"https://app.{KHOJ_DOMAIN}",
+    f"http://localhost:3000"
 ]
 
 DISABLE_HTTPS = is_env_var_true("KHOJ_NO_HTTPS")
@@ -182,15 +183,34 @@ if USE_EMBEDDED_DB:
 
 # Set the database configuration
 DATABASES = {
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql",
+    #     "HOST": DB_HOST,
+    #     "PORT": DB_PORT,
+    #     "USER": os.getenv("POSTGRES_USER", "postgres"),
+    #     "NAME": DB_NAME,
+    #     "PASSWORD": os.getenv("POSTGRES_PASSWORD", "postgres"),
+    #     "CONN_MAX_AGE": 0,
+    #     "CONN_HEALTH_CHECKS": True,
+    # }
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "HOST": DB_HOST,
-        "PORT": DB_PORT,
+        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "HOST": os.getenv("POSTGRES_HOST"),
+        "PORT": os.getenv("POSTGRES_PORT", "5432"),
         "USER": os.getenv("POSTGRES_USER", "postgres"),
-        "NAME": DB_NAME,
+        "NAME": os.getenv("POSTGRES_DB", "khoj"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD", "postgres"),
         "CONN_MAX_AGE": 0,
+        "CONN_MAX_AGE": 600,
         "CONN_HEALTH_CHECKS": True,
+        "OPTIONS": {
+            "sslmode": "require"  # Xata  SSL
+        },
     }
 }
 

@@ -316,6 +316,7 @@ def configure_routes(app):
     from khoj.routers.api_model import api_model
     from khoj.routers.notion import notion_router
     from khoj.routers.web_client import web_client
+    from khoj.routers.api_names import api_names
 
     app.include_router(api, prefix="/api")
     app.include_router(api_chat, prefix="/api/chat")
@@ -323,6 +324,7 @@ def configure_routes(app):
     app.include_router(api_model, prefix="/api/model")
     app.include_router(api_content, prefix="/api/content")
     app.include_router(notion_router, prefix="/api/notion")
+    app.include_router(api_names, prefix="/api/test")
     app.include_router(web_client)
 
     if not state.anonymous_mode:
